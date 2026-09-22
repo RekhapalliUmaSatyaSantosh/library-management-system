@@ -1,0 +1,90 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<h1>Books</h1>
+
+<table border="1">
+<tr>
+    <th>ID</th>
+    <th>Title</th>
+    <th>Author</th>
+    <th>Publisher</th>
+    <th>Quantity</th>
+
+    {% if request.session.role == "admin" %}
+        <th>Update</th>
+        <th>Delete</th>
+    {% endif %}
+
+    {% if request.session.role == "user" %}
+        <th>Request</th>
+    {% endif %}
+
+</tr>
+
+{% for book in books %}
+
+<tr>
+
+    <td>{{ book.bookid }}</td>
+
+    <td>{{ book.title }}</td>
+
+    <td>{{ book.author }}</td>
+
+    <td>{{ book.publisher }}</td>
+
+    <td>{{ book.quantity }}</td>
+
+
+    {% if request.session.role == "admin" %}
+
+        <td>
+            <a href="{% url 'update_book' book.bookid %}">
+                <button>Update</button>
+            </a>
+        </td>
+
+        <td>
+            <a href="{% url 'delete_book' book.bookid %}">
+                <button>Delete</button>
+            </a>
+        </td>
+
+    {% endif %}
+
+
+    {% if request.session.role == "user" %}
+
+        <td>
+
+            {% if book.quantity > 0 %}
+
+                <a href="{% url 'request_issue' book.bookid %}">
+                    <button>Ask for Issue</button>
+                </a>
+
+            {% else %}
+
+                <span>Not Available</span>
+
+            {% endif %}
+
+        </td>
+
+    {% endif %}
+
+</tr>
+
+{% empty %}
+
+<tr>
+    <td colspan="8">No books available.</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock content %}

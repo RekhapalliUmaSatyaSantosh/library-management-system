@@ -1,0 +1,40 @@
+{% extends 'main.html' %}
+{% block content %}
+<h1>Issue Requests</h1>
+{% if messages %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+{% endif %}
+<table border="1">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Email</th>
+            <th>Book</th>
+            <th>Request Date</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for request in requests %}
+        <tr>
+            <td>{{ request.user.username }}</td>
+            <td>{{ request.user.email }}</td>
+            <td>{{ request.book.title }}</td>
+            <td>{{ request.requestdate }}</td>
+            <td>{{ request.status }}</td>
+            <td>
+                <a href="{% url 'approve_issue_request' request.requestid %}">Approve</a>
+                <a href="{% url 'reject_issue_request' request.requestid %}">Reject</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6">No pending issue requests.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

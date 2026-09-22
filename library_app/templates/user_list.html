@@ -1,0 +1,32 @@
+{% extends 'main.html' %}
+{% block content %}
+<div class="user-list">
+    <h2>Library Users</h2>
+    {% if users %}
+    <table>
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.userid }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td><a href="{% url 'update_user' user.userid %}"><button>Update</button></a></td>
+                <td><a href="{% url 'delete_user' user.userid %}"><button>Delete</button></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No users found.</p>
+    {% endif %}
+</div>
+{% endblock content %}

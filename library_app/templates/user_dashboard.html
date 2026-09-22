@@ -1,0 +1,13 @@
+{% extends 'main.html' %}
+{% block content %}
+<div class="dashboard">
+    <h1>User Dashboard</h1>
+    <p>Welcome to the Library!</p>
+    <div class="dashboard-links">
+        <a href="{% url 'book_list' %}">View Books</a>
+        <a href="{% url 'search_book' %}">Search Book</a>
+        <a href="{% url 'my_issued_books' %}">My Issued Books</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+</div>
+{% endblock content %}

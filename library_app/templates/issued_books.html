@@ -1,0 +1,55 @@
+{% extends "main.html" %}
+{% block content %}
+<h1>Issued Books</h1>
+{% if messages %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+{% endif %}
+<table border="1">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Book</th>
+            <th>Issue Date</th>
+            <th>Due Date</th>
+            <th>Return Date</th>
+            <th>Fine</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for issue in issues %}
+        <tr>
+            <td>{{ issue.user.username }}</td>
+            <td>{{ issue.book.title }}</td>
+            <td>{{ issue.issuedate }}</td>
+            <td>
+                {{ issue.duedate }}
+             </td>
+            <td>
+                {% if issue.returndate %}
+                    {{ issue.returndate }}
+                {% else %}
+                    Not Returned
+                {% endif %}
+             </td>
+            <td>₹{{ issue.fine }}</td>
+            <td>
+                {% if issue.returndate %}
+                    <span>Returned</span>
+                {% else %}
+                    <a href="{% url 'return_book' issue.issueid %}">Return Book</a>
+                {% endif %}
+             </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7">
+                No books have been issued.
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

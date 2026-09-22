@@ -1,0 +1,20 @@
+{% extends 'main.html' %}
+{% block content %}
+    <h2>Update Book</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label>Title:</label>
+        <input type="text" name="title" value="{{ book.title }}">
+        <br><br>
+        <label>Author:</label>
+        <input type="text" name="author" value="{{ book.author }}">
+        <br><br>
+        <label>Publisher:</label>
+        <input type="text" name="publisher" value="{{ book.publisher }}">
+        <br><br>
+        <label>Quantity:</label>
+        <input type="number" name="quantity" value="{{ book.quantity }}">
+        <br><br>
+        <button type="submit">Update Book</button>
+    </form>
+{% endblock content %}

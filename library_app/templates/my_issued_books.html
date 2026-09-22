@@ -1,0 +1,46 @@
+{% extends 'main.html' %}
+{% block content %}
+<h1>My Issued Books</h1>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Book</th>
+            <th>Author</th>
+            <th>Issue Date</th>
+            <th>Due Date</th>
+            <th>Return Date</th>
+            <th>Fine</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for issue in issues %}
+        <tr>
+            <td>{{ issue.book.title }}</td>
+            <td>{{ issue.book.author }}</td>
+            <td>{{ issue.issuedate }}</td>
+            <td>{{ issue.duedate }}</td>
+            <td>
+                {% if issue.returndate %}
+                    {{ issue.returndate }}
+                {% else %}
+                    Not Returned
+                {% endif %}
+            </td>
+            <td>₹{{ issue.fine }}</td>
+            <td>
+                {% if issue.returndate %}
+                    Returned
+                {% else %}
+                    Issued
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7">You have no issued books.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

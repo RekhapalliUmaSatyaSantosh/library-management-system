@@ -1,0 +1,36 @@
+{% extends "main.html" %}
+{% block content %}
+<h1>Issue Book</h1>
+{% if messages %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+{% endif %}
+<form method="POST">
+    {% csrf_token %}
+    <label>Select User:</label>
+    <select name="userid" required>
+        <option value="">-- Select User --</option>
+        {% for user in users %}
+            <option value="{{ user.userid }}">
+                {{ user.username }} - {{ user.email }}
+            </option>
+        {% endfor %}
+    </select>
+    <br><br>
+    <label>Select Book:</label>
+    <select name="bookid" required>
+        <option value="">-- Select Book --</option>
+        {% for book in books %}
+            <option value="{{ book.bookid }}">
+                {{ book.title }} - Available: {{ book.quantity }}
+            </option>
+        {% endfor %}
+    </select>
+    <br><br>
+    <label>Due Date:</label>
+    <input type="date" name="duedate" required>
+    <br><br>
+    <button type="submit">Issue Book</button>
+</form>
+{% endblock %}
